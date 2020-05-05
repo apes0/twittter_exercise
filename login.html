@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 
@@ -123,73 +124,98 @@ span.psw {
      width: 100%;
   }
 }
+a{
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+}
 </style>
 </head>
 <body>
 
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
 
-<div id="id01" class="modal">
-  
-  <form class="modal-content animate" method="post">
-    <div class="imgcontainer">
-      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="img_avatar2.png" alt="Avatar" class="avatar">
-    </div>
+  <div id="id01" class="modal">
+    
+    <form class="modal-content animate" method="post">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <img src="img_avatar2.png" alt="Avatar" class="avatar">
+      </div>
 
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input id="usern" type="text" placeholder="Enter Username" name="uname" required>
+      <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input id="usern" type="text" placeholder="Enter Username" name="uname" required>
 
-      <label for="psw"><b>Password</b></label>
-      <input id="pass" type="password" placeholder="Enter Password" name="psw" required>
-        
-      <button id="check" type="submit">Login</button>
-      <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
-      </label>
-    </div>
+        <label for="psw"><b>Password</b></label>
+        <input id="pass" type="password" placeholder="Enter Password" name="psw" required>
+          
+        <button id="check" type="submit">Login</button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+      </div>
 
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-      <span class="psw">Forgot <a href="#">password?</a></span>
-    </div>
-  </form>
-</div>
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <span class="psw">If you don't have an acount <a onclick="user.type = 'signup'">sign up</a>.</span>
+      </div>
+    </form>
+  </div>
 
-<script>
-    document.getElementById('id01').style.display='block'
-  // Get the modal
-  var modal = document.getElementById('id01');
-  var user = {name: document.getElementById("username").value,
-                  password: document.getElementById("pass").value,
-                  type: "login"}
-  var bollen = false;
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-      if (event.target == modal) {
-          modal.style.display = "none";
+  <script>
+        document.getElementById('id01').style.display='block'
+      // Get the modal
+      var modal = document.getElementById('id01');
+      var user = {
+        name: "",
+        password: "",
+        type: 'login'
       }
-  }
-  function makeGET(URL, callback) {
-    fetch(URL)
-    .then(response => response.text())
-    .then(text => callback(text));
-  }
-  $("check").click(function(){
-    makeGET(window.location.href+"post/",function(otg){
-      otg = user;
-    })
-    makeGET(window.location.href+"get/",function(otg){
-      bollen = otg;
-    })
-    if(bollen == "true"){
-      window.location.href = window.location.href.concat("#home");
-    }else{
-      alert("wrong username or password");
-    }
-  })
-</script>
-</body>
+      var bollen = false;
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+          console.log(user.type);
+      }
+      function makeGET(URL, callback) {
+        fetch(URL)
+        .then(response => response.text())
+        .then(text => callback(text));
+      }
+      $("#check").click(function(){
+        user.name = $("#username").val();
+        user.password = $("#pass").val();
+        try{
+          makeGET(window.location.href+"post/",function(otg){
+            otg = user;
+          })
+          if(user.type == 'signup'){
+            bollen = true;
+          }else{
+            makeGET(window.location.href+"get/",function(otg){
+              bollen = JSON.parse(otg);
+              if(otg === ""){
+                alert("Can't connect to the server. Check your internet connection or server's status.");
+              }
+            })
+          }
+        }
+        catch(err){
+          document.body.innerHTML = err.message;
+        }
+        if(bollen){
+          //tuka ne znam local storiga dali she moga da go polzvam ako sum na sushtiq host no ne na suhtiq link. 
+          //Proveri i mi kaji molq. 
+          localStorage.setItem("name", user.name)
+          window.location.href = window.location.href.replace("login.html","");
+        }else{
+          alert("wrong username or password");
+        }
+      })
+    </script>
+  </body>
 </html>

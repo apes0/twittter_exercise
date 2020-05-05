@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Twitter</title>
+    </head>
+    <body>
+        <div class="topnav">
+            <a href="comunity.html" class="active" id="fol">Follow</a>
+            <a href="main.html" id="home">Home</a>
+            <a href="send.html" id="send">Send</a>
+            <div class="search-container">
+            <form>
+                <input id="myInput" type="text" placeholder="Search for person..." name="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+            </div>
+        </div>
+        <ul id="myUL">
+            <li><p>Pesho<button id="follow_Pesho" class="follow">Follow</button></p></li>
+        </ul>
+        <script>
+            let name = ["Pesho"],follow = [false]
+            document.addEventListener("mouseup",function(){
+                for(let i=0;i<name.length;i++){
+                    $("#follow_"+name[i]).click(function(){
+                        if(follow[i]){
+                            $("#follow_"+name[i]).css("background-color: deepskyblue;");
+                            document.getElementById("follow_"+name[i]).innerHTML = "follow";
+                            follow[i]=false;
+                        }else{
+                            $("#follow_"+name[i]).addClass("followed");
+                            document.getElementById("follow_"+name[i]).innerHTML = "followed";
+                            follow[i]=true;
+                        }
+                    })
+                }
+            })
+            $("#send").click(function(){
+                $("#send").addClass("active")
+                $("#home").addClass("none");
+            })
+            $("#myInput").keyup(searchMsg)
+            function searchMsg() {
+                var input, filter, ul, li, a, i, txtValue;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                ul = document.getElementById("myUL");
+                li = ul.getElementsByTagName("li");
+                for (i = 0; i < li.length; i++) {
+                    a = li[i].getElementsByTagName("p")[0];
+                    txtValue = a.textContent || a.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        li[i].style.display = "";
+                    } else {
+                        li[i].style.display = "none";
+                    }
+                }
+            }
+            function newUser(ime){
+                let li = document.createElement("LI");
+                let p = document.createElement("p");
+                let button = document.createElement("button");
+                p.innerHTML= ime;
+                button.innerHTML = "follow";
+                button.id = "follow_"+ime;
+                button.classList.add("follow")
+                name.push(ime);
+                follow.push(false);
+                li.appendChild(p);
+                p.appendChild(button);
+                document.getElementById("myUL").appendChild(li);
+            }
+            function makeGET(URL, callback) {
+                fetch(URL)
+                .then(response => response.text())
+                .then(text => callback(text));
+            }
+            function update(){
+                makeGET(window.location.href+"get/list",function(list){
+                    let l = JSON.parse(list);
+                    if(l.length > name.length){
+                        for(let i = 0;i<l.length;i++){
+                            let a = l.indexOf(name[i]);
+                            if(a != -1){
+                                l[a] = l.pop();
+                            }
+                            newUser(l[i]);
+                        }
+                    }
+                })
+            }
+            //setInterval(update, 10);
+        </script>
+    </body>
+</html>

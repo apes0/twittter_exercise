@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter</title>
+</head>
+<body onload="updateMessages();">
+    <div class="topnav">
+        <a href="comunity.html" id="fol">Follow</a>
+        <a href="main.html" class="active" id="home">Home</a>
+        <a href="send.html" id="send">Send</a>
+        <h1 id="tittle">Twitter</h1>
+    </div>
+    <ul id="myUL">
+        <li><p>Hello</p></li>
+        <li><p>Hello there aasdda</p><img src="images/example.jpg" alt="image" width="200" height="100"></li>
+        <li><p>cool</p></li>
+        <li><p>Ye shure</p></li>
+    </ul>
+    <script>
+        var user = null;
+        $("#send").click(function(){
+            $("#send").addClass("active")
+            $("#home").addClass("none");
+        })
+        $("#myInput").keyup(searchMsg)
+        function searchMsg() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("p")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+        function makeGET(URL, callback) {
+            fetch(URL)
+            .then(response => response.text())
+            .then(text => callback(text));
+        }
+        function updateMessages(){
+            makeGET(window.location.href + "get/", function(otg){
+                user = JSON.parse(otg);
+            })
+            if(user != null){
+                let tittle = document.getElementById("tittle");
+                let li = document.createElement("li");
+                let p = document.createElement("p");
+                for(let i = 0;i<user.message.length;i++){
+                    tittle.innerHTML += user.username;
+                    p.innerHTML = user.message[i];
+                    li.appendChild(p);
+                    document.getElementById("#myUL").appendChild(li);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
