@@ -24,6 +24,7 @@ h1{
     color: black;
     display: block;
     border-radius: 10px;
+    border-right: 43.35%;
   }
   #myUL li:nth-child(odd) { background: rgb(163, 205, 240); }
   #myUL li:hover:not(.header) {
@@ -40,6 +41,16 @@ body {
 .topnav {
   overflow: hidden;
   background-color: #2196F3;
+  position: fixed;
+  /* padding-right: 66.7%; */
+  width: 100%;
+}
+.topnavf {
+  overflow: hidden;
+  background-color: #2196F3;
+  position: relative;
+  /* padding-right: 66.7%; */
+  width: 100%;
 }
 
 .topnav a {
@@ -51,13 +62,17 @@ body {
   text-decoration: none;
   font-size: 17px;
 }
+.follow_table{
+  width: 181%;
+}
 .follow{
   padding: 6px 25px;
   border-radius: 15px;
   right: 500px;
-  margin-left: 1400px;
+  float: right;
   background-color: deepskyblue;
   color: darkcyan;
+  border: none;
 }
 .followed{
   background-color: aqua;
@@ -76,6 +91,7 @@ body {
 
 .topnav .search-container {
   float: right;
+  position: none;
 }
 
 .topnav input[type=text] {
