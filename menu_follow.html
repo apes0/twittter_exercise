@@ -28,6 +28,32 @@
         <p> /</p>
         <ul id="myUL">
             <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
+            <li><table class="follow_table" id="follow_table_1"><tr><td><p>Pesho</p></td><td><button id="follow_Pesho" class="follow">Follow</button></td></tr></table></li>
 
         </ul>
         <script>
@@ -51,19 +77,19 @@
         //     }
         // }) 
             let name = ["Pesho"],follow = [false]
-            document.addEventListener("mouseup",function(){
+            document.addEventListener("mouseup",function(e){
                 for(let i=0;i<name.length;i++){
-                    $("#follow_"+name[i]).click(function(){
+                    if(e.target.id === "follow_"+name[i]){
                         if(follow[i]){
                             $("#follow_"+name[i]).css("background-color: deepskyblue;");
                             document.getElementById("follow_"+name[i]).innerHTML = "follow";
                             follow[i]=false;
                         }else{
-                            $("#follow_"+name[i]).addClass("followed");
+                            $("#follow_"+name[i]).css("background-color: aqua;")
                             document.getElementById("follow_"+name[i]).innerHTML = "followed";
                             follow[i]=true;
                         }
-                    })
+                    }
                 }
             })
             $("#send").click(function(){
