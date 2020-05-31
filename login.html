@@ -140,7 +140,7 @@ a{
     <form class="modal-content animate" method="post">
       <div class="imgcontainer">
         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <img src="img_avatar2.png" alt="Avatar" class="avatar">
+        <img src="img_avatar.png" alt="Avatar" class="avatar">
       </div>
 
       <div class="container">
@@ -151,9 +151,11 @@ a{
         <input id="pass" type="password" placeholder="Enter Password" name="psw" required>
           
         <button id="check" type="submit">Login</button>
+<!--
         <label>
           <input type="checkbox" checked="checked" name="remember"> Remember me
         </label>
+-->
       </div>
 
       <div class="container" style="background-color:#f1f1f1">
@@ -186,7 +188,7 @@ a{
         .then(response => response.text())
         .then(text => callback(text));
       }
-      $("#check").click(function(){
+      $("#check").click(async function(){
         user.name = $("#username").val();
         user.password = $("#pass").val();
         try{
@@ -204,8 +206,8 @@ a{
             })
           }
         }
-        catch(err){
-          document.body.innerHTML = err.message;
+        catch{
+          return alert("There was a problem. Please, try again later...");
         }
         if(bollen){
           //tuka ne znam local storiga dali she moga da go polzvam ako sum na sushtiq host no ne na suhtiq link. 
